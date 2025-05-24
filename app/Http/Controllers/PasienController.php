@@ -6,6 +6,7 @@ use App\Http\Requests\{PasienRequest, StorePasienRequest, UpdatePasienRequest};
 use App\Models\Pasien;
 use App\Models\RumahSakit;
 use App\Services\PasienService;
+use Illuminate\Http\Request;
 
 class PasienController extends Controller
 {
@@ -78,5 +79,17 @@ class PasienController extends Controller
         $pasien->delete();
 
         return response()->json(['message' => 'Berhasil dihapus']);
+    }
+
+    public function filterByRumahSakit($rumahSakitId)
+    {
+        $data =
+            Pasien::with('rumahSakit')
+            ->where('rumah_sakit_id', $rumahSakitId)
+            ->get();
+
+        return response()->json([
+            'data' => $data
+        ]);
     }
 }

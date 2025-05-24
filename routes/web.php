@@ -29,4 +29,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/patient/{patient}', [PasienController::class, 'edit'])->name('patient.edit');
     Route::put('/patient/{patient}', [PasienController::class, 'update'])->name('patient.update');
     Route::delete('/patient/{id}', [PasienController::class, 'destroy'])->name('patient.delete');
+    Route::get('/patient/filter/{rumahSakitId}', [PasienController::class, 'filterByRumahSakit']);
 });

@@ -3,16 +3,17 @@
 @section('content')
     <h3>Data Pasien</h3>
 
-    {{-- <form method="GET" action="{{ route('patient') }}">
-        <select name="rumah_sakit_id" onchange="this.form.submit()">
-            <option value="">Filter Rumah Sakit</option>
+    <div class="mb-4">
+        <label for="filter-rs">Filter berdasarkan Rumah Sakit:</label>
+        <select id="filter-rs" class="form-select">
+            <option value="">-- Semua Rumah Sakit --</option>
             @foreach ($rumahSakits as $rs)
-                <option value="{{ $rs->id }}" {{ $filter == $rs->id ? 'selected' : '' }}>{{ $rs->nama }}</option>
+                <option value="{{ $rs->id }}">{{ $rs->nama }}</option>
             @endforeach
         </select>
-    </form> --}}
+    </div>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="pasien-table">
         <tr>
             <thead>
                 <th>Nama</th>
@@ -61,6 +62,7 @@
     </section>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('.btn-delete').click(function() {
@@ -83,6 +85,31 @@
                     });
                 }
             });
+        });
+    </script>
+
+    <script>
+        document.getElementById('filter-rs').addEventListener('change', function() {
+            const rumahSakitId = this.value;
+            const url = rumahSakitId ? `/patient/filter/${rumahSakitId}` : `/patient`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const tbody = document.querySelector('#pasien-table tbody');
+                    tbody.innerHTML = '';
+
+                    data.data.forEach(patient => {
+                        const rumahSakitNama = patient.rumah_sakit?.nama ?? '-';
+                        tbody.innerHTML += `
+                        <tr>
+                            <td>${patient.nama}</td>
+                            <td>${patient.alamat}</td>
+                            <td>${patient.telepon}</td>
+                            <td>${rumahSakitNama}</td>
+                        </tr>`;
+                    });
+                });
         });
     </script>
 @endsection
