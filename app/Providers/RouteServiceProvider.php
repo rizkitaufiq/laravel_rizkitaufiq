@@ -23,7 +23,11 @@ class RouteServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app['router']->pushMiddlewareToGroup('web', PreventBackHistory::class);
+    }
 
-        parent::boot();
+    public function map(): void
+    {
+        Route::middleware('web')
+            ->group(base_path('routes/web.php'));
     }
 }

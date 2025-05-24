@@ -19,7 +19,7 @@ class AuthController extends Controller
     {
         $this->auth->login($request->validated());
 
-        return redirect()->intended('/dashboard');
+        return redirect()->intended(route('hospital'));
     }
 
     public function logout(): RedirectResponse
