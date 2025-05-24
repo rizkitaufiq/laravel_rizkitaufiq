@@ -16,7 +16,7 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="{{ route('hospital') }}">Rumah Sakit</a></li>
-                    {{-- <li class="nav-item"><a class="nav-link" href="{{ route('patient') }}">Pasien</a></li> --}}
+                    <li class="nav-item"><a class="nav-link" href="{{ route('patient') }}">Pasien</a></li>
                 </ul>
             </div>
         </div>

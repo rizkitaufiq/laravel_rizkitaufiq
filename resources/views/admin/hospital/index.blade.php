@@ -29,6 +29,7 @@
             </tbody>
         </table>
 
+        <hr>
         <section class="mt-8">
             <h1 class="text-center">Form Tambah Rumah Sakit</h1>
             <form action="{{ route('hospital.store') }}" method="POST">
@@ -59,7 +60,7 @@
                         success: function(response) {
                             alert('Data berhasil dihapus');
                             location
-                        .reload(); // atau hapus baris dari DOM jika ingin tanpa reload
+                                .reload();
                         },
                         error: function(xhr) {
                             alert('Terjadi kesalahan: ' + xhr.responseText);
